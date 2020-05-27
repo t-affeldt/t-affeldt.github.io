@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>ZigZag</title>
+		<meta name="author" content="Till Affeldt <t.affeldt@tu-braunschweig.de>">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/simple.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/atom-one-dark-reasonable.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>ZigZag</h1>
+					<span>against Client-side Validation Attacks</span>
+				</section>
+				<section>
+					<section>
+						<h2>What is Client-side Validation (CSV)?</h2>
+					</section>
+					<section>
+						<h3>Validation of Untrusted Input</h3>
+						<ul>
+							<li>HTTP Referrer</li>
+							<li>Browser Information</li>
+							<li>URL parameters & fragment</li>
+							<li>Form data</li>
+							<li>Cookie values</li>
+							<li>Cross-document communication</li>
+							<li>...</li>
+						</ul>
+						<p>
+							<strong>BUT:</strong>
+							<span>Not all data is processed by the server!</span>
+						</p>
+					</section>
+					<section>
+						<h3>The Rise of JavaScript</h3>
+						<img src="images/timeline.svg" height="600">
+					</section>
+					<section>
+						<h3>The Rise of JavaScript</h3>
+						<img src="images/spa_trends.png">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>How do CSV Attacks work?</h2>
+					</section>
+					<section>
+						<h3>Vulnerable example</h3>
+						<pre><code class="lang-javascript" data-line-numbers="1-13|3,13">// Handle a received message
+var receiveMessage = function(e) {
+  // Missing check on e.origin!
+  // ...
+}
+
+var sendMessage = function(e) {
+  // Send data to window
+  window.postMessage(data, "*");
+}
+
+// Register for messages
+window.addEventListener("message", receiveMessage, false);
+						</code></pre>
+					</section>
+					<section>
+						<img src="images/webshop.svg" height="900">
+					</section>
+					<section>
+						<img src="images/attacker.svg" height="900">
+					</section>
+					<section>
+						<h3>Critical Effects on the Client</h3>
+						<ul>
+							<li>Origin mis-attribution</li>
+							<li>XML-HTTP-Requests (Command injection)</li>
+							<li>Accessing private data (Session hijacking)</li>
+							<li>Document manipulation (XSS)</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>How to prevent CSV attacks?</h2>
+					</section>
+					<section>
+						<h3>Previous works</h3>
+						<ul>
+							<li>🕵 Program analysis for finding vulnerabilities</li>
+							<li>🧰 Language-based protection</li>
+							<li>🛡 Sandboxing potentially vulnerable code</li>
+							<li>🔐 Signature and anomaly checks</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Problems</h3>
+						<ul>
+							<li>❌ No <emph>same origin policy</emph></li>
+							<li>😵 Difficulty of training developers</li>
+							<li>🐾 Rapidly evolving web platform</li>
+							<li>🔄 Highly dynamic interaction across documents</li>
+						</ul>
+					</section>
+					<section>
+						<h3>ZigZag's approach</h3>
+						<ul>
+							<li>🤖 Fully automatic</li>
+							<li>👻 No modifications to source code</li>
+							<li>👻 No browser modifications needed</li>
+							<li>👁️‍🗨️ Dynamic reactions to changed conditions</li>
+							<li>🤝 Deployable by website operators or third parties</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>How does that work?</h2>
+					</section>
+					<section>
+						<h3>Core Idea</h3>
+						<strong>Anomaly Patching</strong><br>
+						<ul>
+							<li>🔎 Find security-relevant application parts</li>
+							<li>📝 Trace normal execution flow</li>
+							<li>🤔 Deduce likely restrictions for variables</li>
+							<li>👮 Enforce restrictions on application calls</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Find relevant functions</h3>
+						<ul>
+							<li>🕵 Determine checkpoints for tracing</li>
+							<li>✈ Use entry and exit points of callback functions</li>
+							<li>🔥 Use static analysis to detect relevant API sinks</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Trace execution flow</h3>
+						<strong>Store values of...</strong><br>
+						<ul>
+							<li>Function parameters</li>
+							<li>Caller / callee pairs</li>
+							<li>Return values</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Deduce restrictions of...</h3>
+						<strong>...single values</strong><br>
+						<ul>
+							<li>type (typeof origin === "string")</li>
+							<li>equality (origin === "ads.com")</li>
+							<li>length (origin.length < 8)</li>
+							<li>isJSON, isPrintable, isEmail, isURL, ...</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Deduce restrictions of...</h3>
+						<strong>...multiple values</strong><br>
+						<ul>
+							<li>equality (x === y)</li>
+							<li>inequality (x < y)</li>
+							<li>also for same type, isJSON, ...</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Enforce restrictions</h3>
+						<ul>
+							<li>Repeat tracing step</li>
+							<li>Terminate application if invalid</li>
+							<li>Warn about violations</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Any issues with this?</h2>
+					</section>
+					<section>
+						<h3>Training Process</h3>
+						<ul>
+							<li>Requires training in order to function</li>
+							<li>Too few test runs ⇒ false-positives</li>
+							<li>Learning phase requires attack-free usage</li>
+							<li>End-to-end tests as possible base</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Generated Code</h3>
+						<ul>
+							<li>Detection of dynamic code rewriting</li>
+							<li>Detection of templated code generation</li>
+							<li>Abstracting of restrictions for code classes</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Performance</h3>
+						<img src="images/performance.png" height="500">
+					</section>
+					<section>
+						<h3>Security</h3>
+						<ul>
+							<li>Protects against anomalies</li>
+							<li>Does not hide itself</li>
+							<li>No protection against other XSS attacks</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Does it actually work?</h3>
+						<ul>
+							<li>Tested on Alexa Top 50</li>
+							<li>No false-positives</li>
+							<li>Working on all but one page</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h2>Further questions?</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
