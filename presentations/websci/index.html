@@ -27,12 +27,25 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+				<section data-background-image="images/title-slide.svg"></section>
 				<section>
-					<h1>OPTIMAL</h1>
-					<h3>Structural preferences with SPARQL</h3>
+					<section><h2>What is the problem?</h2></section>
+					<section>
+						<h3>Data heterogeneity</h3>
+						<ul>
+							<li>Missing information</li>
+							<li>Different representations</li>
+							<li>Unintuitve modeling techniques</li>
+						</ul>
+					</section>
 				</section>
 				<section>
-					<section><h2>What do we have?</h2></section>
+					<section><h2>What solutions do we have?</h2></section>
+					<section>
+						<h3>Example</h3>
+						<blockquote><cite style="font-style:normal">🧐</cite> I want a red cabriolet</blockquote>
+						<img src="images/car.svg" width="500">
+					</section>
 					<section>
 						<h3>Built-in Operators</h3>
 						<ul>
@@ -66,11 +79,6 @@
 						</ul>
 					</section>
 					<section>
-						<h3>Example</h3>
-						<blockquote>I want a red car with four doors</blockquote>
-						<img src="images/car.svg" width="500">
-					</section>
-					<section>
 						<h3>
 							<math xmlns="http://www.w3.org/1998/Math/MathML">
 								<msub><mi>Q</mi><mn>1</mn></msub>
@@ -87,7 +95,7 @@
 								<msub><mi>Q</mi><mn>2</mn></msub>
 							</math>
 						</h3>
-						🙅 I want a red car with sunroof or none at all!
+						🙅 I want a red cabriolet or no car at all!
 					</section>
 					<section>
 						<h3>
@@ -97,7 +105,7 @@
 								<msub><mi>Q</mi><mn>2</mn></msub>
 							</math>
 						</h3>
-						🤔 I want a red car... Or maybe one with a sunroof..?
+						🤔 I want a red car... Or maybe a cabriolet..?
 					</section>
 					<section>
 						<h3>
@@ -108,7 +116,7 @@
 							</math>
 						</h3>
 						🤷 I want a red car!
-						<br>Also, can you tell me if it happens to have a sunroof?
+						<br>Also, can you tell me if it happens to be a cabriolet?
 					</section>
 					<section>
 						<h3>FILTER constraints</h3>
@@ -139,7 +147,15 @@
 							<li>Value (properties)</li>
 							<li>Structure (information)</li>
 						</ul>
-						<br>👩‍🔬 ... but <em>I</em> value information
+						<blockquote><cite style="font-style:normal">🤝</cite> I prefer to know a price before I consider buying it</blockquote>
+					</section>
+					<section>
+						<h3>Ranking and Priority</h3>
+						<ul>
+							<li>Equal importance</li>
+							<li>Ranked importance</li>
+						</ul>
+						<blockquote><cite style="font-style:normal">💰</cite> Information on the price is more relevant than the color</blockquote>
 					</section>
 					<section>
 						<h3>Dependencies</h3>
@@ -148,15 +164,7 @@
 							<li>Preferential Dependence</li>
 							<li>Structural Dependence</li>
 						</ul>
-						<br>💘 You can't have one without the other
-					</section>
-					<section>
-						<h3>Ranking and Priority</h3>
-						<ul>
-							<li>Equal importance</li>
-							<li>Ranked importance</li>
-						</ul>
-						<br>🤴 This is clearly important
+						<blockquote><cite style="font-style:normal">🏃</cite> I only care about acceleration if it is a sports car</blockquote>
 					</section>
 					<section>
 						<h3>Expression complexity</h3>
@@ -171,7 +179,7 @@
 							</li>
 							<li><strong>Barely usable:</strong> The example from before</li>
 						</ul>
-						<br>🤦‍♂️ I don't get it
+						<blockquote><cite style="font-style:normal">🤷</cite> I need to understand what I am doing</blockquote>
 					</section>
 					<section>
 						<h2>Requirements</h2>
@@ -200,10 +208,6 @@
 						<img src="images/example3.png">
 					</section>
 					<section>
-						<h3>Reliable</h3>
-						<img src="images/example4.png">
-					</section>
-					<section>
 						<h3>Well integrated</h3>
 						<img src="images/example5.png">
 					</section>
@@ -211,23 +215,12 @@
 				<section>
 					<section><h2>Is it actually usable?</h2></section>
 					<section>
-						<h3>Query Rewriting: OPTIONAL</h3>
-						<ol>
-							<li>Chain all preferences together:
-								<br><code>A OPTIONAL B OPTIONAL C OPTIONAL D...</code></li>
-							<li>For every possible combination, check whether at least one result exists</li>
-							<li>For every found combination, filter out all results that do not have at least the same bound variables</li>
-						</ol>
-					</section>
-					<section>
-						<h3>Query Rewriting: UNION</h3>
-						<ol>
-							<li>Join all possible combinations:
-								<code>A UNION (A AND B) UNION (A AND C)... UNION (A AND B AND C)...</code></li>
-							<li>For every possible combination, check whether at least one result exists</li>
-							<li>Check dominance between combination sets</li>
-							<li>For every found combination, filter out all results that are dominated</li>
-						</ol>
+						<h3>Query Rewriting</h3>
+						<img src="images/rewriting.png" width="400">
+						<blockquote>
+							<cite style="font-style:normal">🤵</cite> I want a car (<math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>Q</mi><mn>0</mn></msub></math>),
+							preferably with information on color (A) and brand (B).
+						</blockquote>
 					</section>
 					<section>
 						<h3>Quantitative Criteria</h3>
