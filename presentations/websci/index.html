@@ -1,0 +1,327 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<script src="https://fred-wang.github.io/mathml.css/mspace.js"></script>
+
+		<title>SPARQL with OPTIMAL</title>
+		<meta name="author" content="Till Affeldt <t.affeldt@tu-braunschweig.de>">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>OPTIMAL</h1>
+					<h3>Structural preferences with SPARQL</h3>
+				</section>
+				<section>
+					<section><h2>What do we have?</h2></section>
+					<section>
+						<h3>Built-in Operators</h3>
+						<ul>
+							<li>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+								</math>
+							</li>
+							<li>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+									<mspace width="10px"/>AND<mspace width="10px"/>
+									<msub><mi>Q</mi><mn>2</mn></msub>
+								</math>
+							</li>
+							<li>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+									<mspace width="10px"/>UNION<mspace width="10px"/>
+									<msub><mi>Q</mi><mn>2</mn></msub>
+								</math>
+							</li>
+							<li>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+									<mspace width="10px"/>OPTIONAL<mspace width="10px"/>
+									<msub><mi>Q</mi><mn>2</mn></msub>
+								</math>
+							</li>
+							<li>complex FILTER methods</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<blockquote>I want a red car with four doors</blockquote>
+						<img src="images/car.svg" width="500">
+					</section>
+					<section>
+						<h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML">
+								<msub><mi>Q</mi><mn>1</mn></msub>
+							</math>
+						</h3>
+						😵 I'm looking for a red car.
+						<br>But I could swear there was something else I wanted to mention.
+					</section>
+					<section>
+						<h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML">
+								<msub><mi>Q</mi><mn>1</mn></msub>
+								<mspace width="10px"/>AND<mspace width="10px"/>
+								<msub><mi>Q</mi><mn>2</mn></msub>
+							</math>
+						</h3>
+						🙅 I want a red car with sunroof or none at all!
+					</section>
+					<section>
+						<h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML">
+								<msub><mi>Q</mi><mn>1</mn></msub>
+								<mspace width="10px"/>UNION<mspace width="10px"/>
+								<msub><mi>Q</mi><mn>2</mn></msub>
+							</math>
+						</h3>
+						🤔 I want a red car... Or maybe one with a sunroof..?
+					</section>
+					<section>
+						<h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML">
+								<msub><mi>Q</mi><mn>1</mn></msub>
+								<mspace width="10px"/>OPTIONAL<mspace width="10px"/>
+								<msub><mi>Q</mi><mn>2</mn></msub>
+							</math>
+						</h3>
+						🤷 I want a red car!
+						<br>Also, can you tell me if it happens to have a sunroof?
+					</section>
+					<section>
+						<h3>FILTER constraints</h3>
+						🤯 I can tell you exactly what I want!
+						<br>But first, let me read out your entire catalogue to you,
+						and my thoughts	on your products...
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>What do we have?</h2>
+						<p>(with extensions)</p>
+					</section>
+					<section>
+						<h3>Related work</h3>
+						<ul>
+							<li>Previous knowledge from relational databases</li>
+							<li>Fuzzy FILTER logic (f-SPARQL)</li>
+							<li>Frameworks for value preferences (PrefSPARQL, SPREFQL)</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section><h2>What do we need?</h2></section>
+					<section>
+						<h3>Types of Preferences</h3>
+						<ul>
+							<li>Value (properties)</li>
+							<li>Structure (information)</li>
+						</ul>
+						<br>👩‍🔬 ... but <em>I</em> value information
+					</section>
+					<section>
+						<h3>Dependencies</h3>
+						<ul>
+							<li>Independence</li>
+							<li>Preferential Dependence</li>
+							<li>Structural Dependence</li>
+						</ul>
+						<br>💘 You can't have one without the other
+					</section>
+					<section>
+						<h3>Ranking and Priority</h3>
+						<ul>
+							<li>Equal importance</li>
+							<li>Ranked importance</li>
+						</ul>
+						<br>🤴 This is clearly important
+					</section>
+					<section>
+						<h3>Expression complexity</h3>
+						<ul>
+							<li>
+								<strong>Simple intuitive modeling:</strong>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+									<mspace width="10px"/>OPTIMAL<mspace width="10px"/>
+									<msub><mi>Q</mi><mn>2</mn></msub>
+								</math>
+							</li>
+							<li><strong>Barely usable:</strong> The example from before</li>
+						</ul>
+						<br>🤦‍♂️ I don't get it
+					</section>
+					<section>
+						<h2>Requirements</h2>
+						<ul>
+							<li>Framework for structural dependencies</li>
+							<li>Modeling of dependent and independent preferences</li>
+							<li>Ranked and unranked preferences</li>
+							<li>Simple intuitive modeling</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>What would that look like?</h2>
+					</section>
+					<section>
+						<h3>One simple operator</h3>
+						<img src="images/example1.png">
+					</section>
+					<section>
+						<h3>Left associative</h3>
+						<img src="images/example2.png">
+					</section>
+					<section>
+						<h3>Simultaneous</h3>
+						<img src="images/example3.png">
+					</section>
+					<section>
+						<h3>Reliable</h3>
+						<img src="images/example4.png">
+					</section>
+					<section>
+						<h3>Well integrated</h3>
+						<img src="images/example5.png">
+					</section>
+				</section>
+				<section>
+					<section><h2>Is it actually usable?</h2></section>
+					<section>
+						<h3>Query Rewriting: OPTIONAL</h3>
+						<ol>
+							<li>Chain all preferences together:
+								<br><code>A OPTIONAL B OPTIONAL C OPTIONAL D...</code></li>
+							<li>For every possible combination, check whether at least one result exists</li>
+							<li>For every found combination, filter out all results that do not have at least the same bound variables</li>
+						</ol>
+					</section>
+					<section>
+						<h3>Query Rewriting: UNION</h3>
+						<ol>
+							<li>Join all possible combinations:
+								<code>A UNION (A AND B) UNION (A AND C)... UNION (A AND B AND C)...</code></li>
+							<li>For every possible combination, check whether at least one result exists</li>
+							<li>Check dominance between combination sets</li>
+							<li>For every found combination, filter out all results that are dominated</li>
+						</ol>
+					</section>
+					<section>
+						<h3>Quantitative Criteria</h3>
+						<ul>
+							<li>📜 Result Size</li>
+							<li>🕜 Response Time</li>
+						</ul>
+					</section>
+					<section data-background-image="images/testsuite.png"></section>
+					<section>
+						<h3>📜 Result Size</h3>
+						<ul>
+							<li>Smaller than OPTIONAL</li>
+							<li>Greatly varying (between 0.02% and 100%)</li>
+							<li>Heterogenous data -> bigger skyline result size</li>
+							<li>Often homogenous or partially complete data</li>
+						</ul>
+				</section>
+				<section>
+					<h3>🕜 Response Time</h3>
+					<ul>
+						<li>Only up to 2 preferences</li>
+						<li>Takes a lot longer</li>
+						<li>Faster if much smaller</li>
+						<li>Encodings perform similiar</li>
+						<li>UNION more stable</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section><h2>What else is left to discuss?</h2></section>
+				<section>
+					<h3>Future Topics</h3>
+					<ul>
+						<li>Complexity & expressive power</li>
+						<li>In depth performance analysis</li>
+						<li>Specialized evaluation runtimes</li>
+						<li>Limitations of OPTIMAL</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section><h2>What limitations?</h2></section>
+				<section>
+					<h3>Limitations</h3>
+					<ul>
+						<li>Semantic differences</li>
+						<li>Dependency modeling</li>
+						<li>Ranked alternatives</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Dependency modeling</h3>
+					<img src="images/conditional.png">
+				</section>
+				<section>
+					<h3>Better matching control</h3>
+					<ul>
+						<li>Positive dependencies</li>
+						<li>Negative dependencies</li>
+						<li>n:m relations</li>
+					</ul>
+				</section>
+				<section>
+					<h3>THEN and OTHERWISE</h3>
+					<img src="images/then.png">
+				</section>
+			</section>
+			<section>
+				<h3>Roundup</h3>
+				<ul>
+					<li>Preferences offer intuitive modeling</li>
+					<li>Structural preferences needed for handling incompleteness</li>
+					<li>New operators for modeling queries</li>
+					<li>Dependency modeling with adjustments</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				hash: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/highlight/highlight.js' },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
