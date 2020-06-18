@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/simple.css">
+		<link rel="stylesheet" href="css/custom.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/monokai.css">
@@ -31,7 +32,7 @@
 				<section>
 					<section><h2>What is the problem?</h2></section>
 					<section>
-						<h3>Data heterogeneity</h3>
+						<h3>Data Heterogeneity</h3>
 						<ul>
 							<li>Missing information</li>
 							<li>Different representations</li>
@@ -85,7 +86,7 @@
 							</math>
 						</h3>
 						😵 I'm looking for a red car.
-						<br>But I could swear there was something else I wanted to mention.
+						<br>But wasn't there something else?
 					</section>
 					<section>
 						<h3>
@@ -116,13 +117,12 @@
 							</math>
 						</h3>
 						🤷 I want a red car!
-						<br>Also, can you tell me if it happens to be a cabriolet?
+						<br>Also, does it happen to be a cabriolet?
 					</section>
 					<section>
-						<h3>FILTER constraints</h3>
-						🤯 I can tell you exactly what I want!
-						<br>But first, let me read out your entire catalogue to you,
-						and my thoughts	on your products...
+						<h3>FILTER Constraints</h3>
+						🤯 I can tell you what I want!
+						<br>...right after reading out your entire catalogue
 					</section>
 				</section>
 				<section>
@@ -131,7 +131,7 @@
 						<p>(with extensions)</p>
 					</section>
 					<section>
-						<h3>Related work</h3>
+						<h3>Related Work</h3>
 						<ul>
 							<li>Previous knowledge from relational databases</li>
 							<li>Fuzzy FILTER logic (f-SPARQL)</li>
@@ -147,7 +147,7 @@
 							<li>Value (properties)</li>
 							<li>Structure (information)</li>
 						</ul>
-						<blockquote><cite style="font-style:normal">🤝</cite> I prefer to know a price before I consider buying it</blockquote>
+						<blockquote><cite style="font-style:normal">🤝</cite> I prefer to know what I'm buying</blockquote>
 					</section>
 					<section>
 						<h3>Ranking and Priority</h3>
@@ -155,7 +155,7 @@
 							<li>Equal importance</li>
 							<li>Ranked importance</li>
 						</ul>
-						<blockquote><cite style="font-style:normal">💰</cite> Information on the price is more relevant than the color</blockquote>
+						<blockquote><cite style="font-style:normal">💰</cite> Information on price is more relevant than color</blockquote>
 					</section>
 					<section>
 						<h3>Dependencies</h3>
@@ -167,7 +167,7 @@
 						<blockquote><cite style="font-style:normal">🏃</cite> I only care about acceleration if it is a sports car</blockquote>
 					</section>
 					<section>
-						<h3>Expression complexity</h3>
+						<h3>Expression Complexity</h3>
 						<ul>
 							<li>
 								<strong>Simple intuitive modeling:</strong>
@@ -177,17 +177,17 @@
 									<msub><mi>Q</mi><mn>2</mn></msub>
 								</math>
 							</li>
-							<li><strong>Barely usable:</strong> The example from before</li>
+							<li><strong>Barely usable:</strong> Repeating patterns and complex constraints</li>
 						</ul>
 						<blockquote><cite style="font-style:normal">🤷</cite> I need to understand what I am doing</blockquote>
 					</section>
 					<section>
 						<h2>Requirements</h2>
 						<ul>
-							<li>Framework for structural dependencies</li>
-							<li>Modeling of dependent and independent preferences</li>
-							<li>Ranked and unranked preferences</li>
-							<li>Simple intuitive modeling</li>
+							<li>Structural dependencies</li>
+							<li>Dependent preferences</li>
+							<li>Ranked references</li>
+							<li>Intuitive modeling</li>
 						</ul>
 					</section>
 				</section>
@@ -235,8 +235,6 @@
 						<ul>
 							<li>Smaller than OPTIONAL</li>
 							<li>Greatly varying (between 0.02% and 100%)</li>
-							<li>Heterogenous data -> bigger skyline result size</li>
-							<li>Often homogenous or partially complete data</li>
 						</ul>
 				</section>
 				<section>
@@ -245,8 +243,6 @@
 						<li>Only up to 2 preferences</li>
 						<li>Takes a lot longer</li>
 						<li>Faster if much smaller</li>
-						<li>Encodings perform similiar</li>
-						<li>UNION more stable</li>
 					</ul>
 				</section>
 			</section>
@@ -258,47 +254,25 @@
 						<li>Complexity & expressive power</li>
 						<li>In depth performance analysis</li>
 						<li>Specialized evaluation runtimes</li>
-						<li>Limitations of OPTIMAL</li>
+						<li>Dependencies between preferences</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Roundup</h3>
+					<ul>
+						<li>Intuitive modeling with preferences</li>
+						<li>Structural preferences for handling incompleteness</li>
+						<li>New operators for modeling queries</li>
+						<li>Usable but further improvements necessary</li>
 					</ul>
 				</section>
 			</section>
-			<section>
-				<section><h2>What limitations?</h2></section>
-				<section>
-					<h3>Limitations</h3>
-					<ul>
-						<li>Semantic differences</li>
-						<li>Dependency modeling</li>
-						<li>Ranked alternatives</li>
-					</ul>
-				</section>
-				<section>
-					<h3>Dependency modeling</h3>
-					<img src="images/conditional.png">
-				</section>
-				<section>
-					<h3>Better matching control</h3>
-					<ul>
-						<li>Positive dependencies</li>
-						<li>Negative dependencies</li>
-						<li>n:m relations</li>
-					</ul>
-				</section>
-				<section>
-					<h3>THEN and OTHERWISE</h3>
-					<img src="images/then.png">
-				</section>
-			</section>
-			<section>
-				<h3>Roundup</h3>
-				<ul>
-					<li>Preferences offer intuitive modeling</li>
-					<li>Structural preferences needed for handling incompleteness</li>
-					<li>New operators for modeling queries</li>
-					<li>Dependency modeling with adjustments</li>
-				</ul>
-			</div>
 		</div>
+		<footer>
+			<img src="images/ifis-logo.png" height="25">
+			Till Affeldt, TU Braunschweig, Germany
+		</footer>
+	</div>
 
 		<script src="js/reveal.js"></script>
 
@@ -313,7 +287,8 @@
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/highlight/highlight.js' },
 					{ src: 'plugin/notes/notes.js', async: true }
-				]
+				],
+				pdfMaxPagesPerSlide: 1
 			});
 		</script>
 	</body>
