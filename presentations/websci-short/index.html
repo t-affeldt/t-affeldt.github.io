@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<script src="https://fred-wang.github.io/mathml.css/mspace.js"></script>
+
+		<title>SPARQL with OPTIMAL</title>
+		<meta name="author" content="Till Affeldt <t.affeldt@tu-braunschweig.de>">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-image="images/title-slide.svg"></section>
+				<section>
+					<section><h2>Knowledge Graphs</h2>
+						<ul>
+							<li>Contain information from various sources</li>
+							<li>Store data without schema</li>
+							<li>Often describe similar things</li>
+						</ul>
+						<br>🠺 Data Heterogeneity
+					</section>
+					<section>
+						<h2>Current Methods</h2>
+						<ul>
+							<li>no query answers at all (AND)</li>
+							<li>a flood of insignificant data (UNION, OPTIONAL)</li>
+						</ul>
+						<br>🠺 Manual query adjustment needed
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Value Preferences</h3>
+						<blockquote><cite class="emoji">😊</cite> I prefer red cabriolets</blockquote>
+						<img src="images/car.svg" width="500">
+					</section>
+					<section>
+						<h3>Structural Preferences</h3>
+						<blockquote><cite class="emoji">😵</cite> I prefer cars with price information</blockquote>
+						<img src="images/car.svg" width="500">
+						<div class="emoji image-overlay">💰</div>
+					</section>
+				</section>
+				<section>
+					<h2>The OPTIMAL operator</h2>
+					<ul>
+						<li>Enable usage of structural preferences</li>
+						<li>Intuite single query operation with Pareto semantics</li>
+					</ul>
+				</section>
+				<section>
+					<section data-background-image="images/testsuite.png"></section>
+					<section>
+						<h3>📜 Result Size</h3>
+						<ul>
+							<li>Smaller than OPTIONAL</li>
+							<li>Greatly varying (between 0.02% and 100%)</li>
+						</ul>
+					</section>
+					<section>
+						<h3>🕜 Response Time</h3>
+						<ul>
+							<li>Only up to 2 preferences</li>
+							<li>Takes a lot longer</li>
+							<li>Faster if much smaller</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h3>Roundup</h3>
+					<ul>
+						<li>Intuitive modeling with preferences</li>
+						<li>Structural preferences for handling incompleteness</li>
+						<li>New operator for modeling queries</li>
+						<li>Usable but further improvements necessary</li>
+					</ul>
+				</section>
+			</div>
+			<footer>
+				<img src="images/ifis-logo.png" height="25">
+				Till Affeldt, TU Braunschweig, Germany
+			</footer>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				hash: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/highlight/highlight.js' },
+					{ src: 'plugin/notes/notes.js', async: true }
+				],
+				pdfMaxPagesPerSlide: 1
+			});
+		</script>
+	</body>
+</html>
