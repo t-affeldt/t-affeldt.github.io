@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<script src="https://fred-wang.github.io/mathml.css/mspace.js"></script>
+
+		<title>SPARQL with OPTIMAL</title>
+		<meta name="author" content="Till Affeldt <t.affeldt@tu-braunschweig.de>">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>OptiSparql</h1>
+					<span>(Interdependent) <b>Preferences</b> for <b>easier control</b> over query answers from <b>incomplete</b> knowledge graphs</span>
+					<div style="font-size: 0.65em">Till Affeldt - Stephan Mennicke - Wolf-Tilo Balke</div>
+				</section>
+				<section>
+					<section><h2>Knowledge Graphs</h2>
+						<ul>
+							<li>model similar things differently</li>
+							<li>often have missing information</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Value Preferences</h3>
+						<blockquote><cite class="emoji">😊</cite> I prefer red cabriolets</blockquote>
+						<img src="images/car.svg" width="500">
+					</section>
+					<section>
+						<h3>Structural Preferences</h3>
+						<blockquote><cite class="emoji">😵</cite> I prefer cars with price information</blockquote>
+						<img src="images/car.svg" width="500">
+						<div class="emoji image-overlay">💰</div>
+					</section>
+				</section>
+				<section>
+					<h2>The OPTIMAL operator</h2>
+					<ul>
+						<li>Enable usage of structural preferences</li>
+						<li>Intuitive single query operation with Pareto semantics</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h3>🔥 Open Problem</h3>
+						Dependencies too complex to model
+						<ul>
+							<li>😏 I only prefer red color for cabriolets</li>
+							<li>🤑 Price matters. Unless it is my favorite sports car</li>
+						</ul>
+					</section>
+					<section>
+						<h3>✅ Solution</h3>
+						<ul>
+							<li>Explicit modeling of dependencies</li>
+							<li>New operators THEN and OTHERWISE</li>
+						</ul>
+					</section>
+				</section>
+			</div>
+			<footer>
+				<img src="images/ifis-logo.png" height="25">
+				Till Affeldt, TU Braunschweig, Germany
+			</footer>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				hash: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/highlight/highlight.js' },
+					{ src: 'plugin/notes/notes.js', async: true }
+				],
+				pdfMaxPagesPerSlide: 1
+			});
+		</script>
+	</body>
+</html>

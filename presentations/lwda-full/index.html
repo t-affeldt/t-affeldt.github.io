@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<script src="https://fred-wang.github.io/mathml.css/mspace.js"></script>
+
+		<title>SPARQL with OPTIMAL</title>
+		<meta name="author" content="Till Affeldt <t.affeldt@tu-braunschweig.de>">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>OptiSparql</h1>
+					<span>(Interdependent) <b>Preferences</b> for <b>easier control</b> over query answers from <b>incomplete</b> knowledge graphs</span>
+					<div style="font-size: 0.65em">Till Affeldt - Stephan Mennicke - Wolf-Tilo Balke</div>
+				</section>
+				<section><h2>Knowledge Graphs</h2>
+					<ul>
+						<li>mix data from various sources</li>
+						<li>model similar things differently</li>
+						<li>often have missing information</li>
+					</ul>
+				</section>
+				<section>
+					<section><h2>What modeling techniques do we have?</h2></section>
+					<section>
+						<h3>Built-in Operators</h3>
+						<ul>
+							<li>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+									<mspace width="10px"/>AND<mspace width="10px"/>
+									<msub><mi>Q</mi><mn>2</mn></msub>
+								</math>
+							</li>
+							<li>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+									<mspace width="10px"/>UNION<mspace width="10px"/>
+									<msub><mi>Q</mi><mn>2</mn></msub>
+								</math>
+							</li>
+							<li>
+								<math xmlns="http://www.w3.org/1998/Math/MathML">
+									<msub><mi>Q</mi><mn>1</mn></msub>
+									<mspace width="10px"/>OPTIONAL<mspace width="10px"/>
+									<msub><mi>Q</mi><mn>2</mn></msub>
+								</math>
+							</li>
+							<li>complex FILTER methods</li>
+						</ul>
+					</section>
+					<section>
+						<h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML">
+								<msub><mi>Q</mi><mn>1</mn></msub>
+								<mspace width="10px"/>AND<mspace width="10px"/>
+								<msub><mi>Q</mi><mn>2</mn></msub>
+							</math>
+						</h3>
+						🙅 I want a red cabriolet or no car at all!
+					</section>
+					<section>
+						<h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML">
+								<msub><mi>Q</mi><mn>1</mn></msub>
+								<mspace width="10px"/>UNION<mspace width="10px"/>
+								<msub><mi>Q</mi><mn>2</mn></msub>
+							</math>
+						</h3>
+						🤔 I want a red car... Or maybe a cabriolet..?
+					</section>
+					<section>
+						<h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML">
+								<msub><mi>Q</mi><mn>1</mn></msub>
+								<mspace width="10px"/>OPTIONAL<mspace width="10px"/>
+								<msub><mi>Q</mi><mn>2</mn></msub>
+							</math>
+						</h3>
+						🤷 I want a red car!
+						<br>Also, does it happen to be a cabriolet?
+					</section>
+					<section>
+						<h3>FILTER Constraints</h3>
+						🤯 I can tell you what I want!
+						<br>...right after reading out your entire catalogue
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>What do we have?</h2>
+						<p>(with extensions)</p>
+					</section>
+					<section>
+						<h3>Related Work</h3>
+						<ul>
+							<li>Previous knowledge from relational databases</li>
+							<li>Fuzzy FILTER logic (f-SPARQL)</li>
+							<li>Frameworks for value preferences (PrefSPARQL, SPREFQL)</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section><h2>What is a structural preference?</h2></section>
+					<section>
+						<h3>Value Preferences</h3>
+						<blockquote><cite class="emoji">😊</cite> I prefer red cabriolets</blockquote>
+						<img src="images/car.svg" width="500">
+					</section>
+					<section>
+						<h3>Structural Preferences</h3>
+						<blockquote><cite class="emoji">😵</cite> I prefer cars with price information</blockquote>
+						<img src="images/car.svg" width="500">
+						<div class="emoji image-overlay">💰</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>What would that look like?</h2>
+					</section>
+					<section>
+						<h3>One simple operator</h3>
+						<img src="images/example1.png">
+					</section>
+					<section>
+						<h3>Left associative</h3>
+						<img src="images/example2.png">
+					</section>
+					<section>
+						<h3>Simultaneous</h3>
+						<img src="images/example3.png">
+					</section>
+				</section>
+				<section>
+					<section><h2>Why does that not suffice?</h2></section>
+					<section>
+						<h3>Interdependencies</h3>
+						<img src="images/car-sport.svg" width="500">
+						<blockquote>
+							<cite style="font-style:normal">🤵</cite> I prefer the color red but only when it comes to sports cars.
+						</blockquote>
+					</section>
+					<section>
+						<h3>Structural Dependencies</h3>
+						<blockquote>
+							<cite style="font-style:normal"></cite> I prefer cars with information about the manufacturer and <strong>the manufacturer's</strong> form of company.
+						</blockquote>
+					</section>
+			</section>
+			<section>
+				<section>
+					<h2>What did we change?</h2>
+				</section>
+				<section>
+					<h3>Our Revision</h3>
+					<ul>
+						<li>new operators <tt>THEN</tt> and <tt>OTHERWISE</tt></li>
+						<li>model dependencies explicitly</li>
+						<li>clearer and more concise</li>
+					</ul>
+				</section>
+				<section>
+					<h3>THEN</h3>
+					<img src="images/then.PNG" width="900">
+					<blockquote>
+						<cite style="font-style:normal">🤵</cite> I prefer the color red but only when it comes to sports cars.
+					</blockquote>
+				</section>
+				<section>
+					<h3>OTHERWISE</h3>
+					<img src="images/otherwise.PNG" width="800">
+					<blockquote>
+						<cite style="font-style:normal">👨‍✈️</cite> I prefer a price in Euros. Otherwise, Dollars will suffice.
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section><h2>What else is left to discuss?</h2></section>
+				<section>
+					<h3>Future Topics</h3>
+					<ul>
+						<li>Complexity & expressive power</li>
+						<li>In depth performance analysis</li>
+						<li>Specialized evaluation runtimes</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Roundup</h3>
+					<ul>
+						<li>Intuitive modeling with preferences</li>
+						<li>Structural preferences for handling incompleteness</li>
+						<li>New operators for modeling queries</li>
+						<li>More complex models with additional operators</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<footer>
+			<img src="images/ifis-logo.png" height="25">
+			Till Affeldt, TU Braunschweig, Germany
+		</footer>
+	</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				hash: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/highlight/highlight.js' },
+					{ src: 'plugin/notes/notes.js', async: true }
+				],
+				pdfMaxPagesPerSlide: 1
+			});
+		</script>
+	</body>
+</html>

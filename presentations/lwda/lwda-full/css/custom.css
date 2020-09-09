@@ -1,0 +1,21 @@
+.reveal footer {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  font-size: 0.5em;
+}
+
+.emoji {
+  font-style: normal;
+	text-decoration: none;
+	color: #ccc;
+	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji",
+		Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif,
+		LastResort;
+	font-variant-emoji: emoji;
+}
+
+.image-overlay {
+  font-size: 300px;
+  margin-top: -420px;
+}
